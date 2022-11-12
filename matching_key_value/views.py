@@ -40,7 +40,6 @@ def list_table(request):
         str2match = " ".join(value_list)
         matching_ratios = process.extractBests(str2match, set(options), score_cutoff=50)
         resultant_dict = {"key": key, "record": matching_ratios}
-        print("options", options)
         return render(request, 'matching_key_value/table.html', context=resultant_dict)
     else:
         return HttpResponse("Method not allowed")
