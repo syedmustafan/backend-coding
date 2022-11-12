@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import index, list_table
+from .views import ListTable, IndexView
 
 urlpatterns = [
-    path("", index, name="index"),
-    path("list", list_table, name="list-table")
+    path("", IndexView.as_view(), name="index"),
+    path("list", ListTable.as_view(), name="list-table")
 ]
