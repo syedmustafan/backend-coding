@@ -1,0 +1,10 @@
+asgiref==3.5.2
+Django==3.2.11
+django-ratelimit==3.0.1
+flake8==5.0.4
+fuzzywuzzy==0.18.0
+mccabe==0.7.0
+pycodestyle==2.9.1
+pyflakes==2.5.0
+pytz==2022.6
+sqlparse==0.4.3
