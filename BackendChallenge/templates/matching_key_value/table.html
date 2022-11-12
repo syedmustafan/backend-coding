@@ -1,44 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Similarity Table</title>
-        <style>
-            table {
-              font-family: arial, sans-serif;
-              border-collapse: collapse;
-              width: 100%;
-            }
 
-            td, th {
-              border: 1px solid #dddddd;
-              text-align: left;
-              padding: 8px;
-            }
+<head>
+    <meta charset="UTF-8">
+    <title>Similarity Table</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-            tr:nth-child(even) {
-              background-color: #dddddd;
-            }
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
     </style>
-    </head>
-    <body>
-        <h2>Similarity Table</h2>
-        <table>
-            <tr>
-                <th>Key</th>
-                <th>Values</th>
-                <th>Matching Percentage</th>
-            </tr>
-            {% for rec in record %}
-                <tr>
+</head>
 
-                    <td> {{ key }} </td>
-                    <td> {{ rec.0 }}</td>
-                    <td> {{ rec.1 }}%</td>
+<body>
+    <h2>Similarity Table</h2>
+    <table>
+        <tr>
+            <th>Key</th>
+            <th>Values</th>
+            <th>Matching Percentage</th>
+        </tr>
+        {% for rec in record %}
+        <tr>
 
-                </tr>
-            {% endfor %}
-        </table>
+            <td> {{ key }} </td>
+            <td> {{ rec.0 }}</td>
+            <td> {{ rec.1 }}%</td>
 
-    </body>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+
 </html>
