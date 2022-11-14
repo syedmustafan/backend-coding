@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from fuzzywuzzy import process
+from fuzzywuzzy import fuzz
 from django.views import generic
 
 
@@ -15,6 +15,7 @@ class IndexView(generic.ListView):
 class ListTable(generic.CreateView):
     def post(self, request, *args, **kwargs):
         medicine_dict = {}
+        options = []
         if request.method == 'POST':
             key = request.POST.get('key')
             with open('./data/Dummy-medical-dataset.csv') as f:
@@ -23,13 +24,12 @@ class ListTable(generic.CreateView):
                     medicine_dict[medicine_name[0]] = medicine_name[1]
 
             medicine_value = medicine_dict.get(key, "") if key in medicine_dict else ""
-            value_list = medicine_value.split(" ") if medicine_value else []
-            exclusive_words = ["TABLET", "500MG", "300MG", "250MG"]
-            options = [values.replace('"', '') for values in medicine_dict.values() for val in value_list if
-                       val in values and values not in exclusive_words]
-            str2match = " ".join(value_list)
-            matching_ratios = process.extractBests(str2match, set(options), score_cutoff=50)[1:]
-            resultant_dict = {"key": key, "record": matching_ratios}
+            for values in medicine_dict.values():
+                ratio = fuzz.ratio(values, medicine_value)
+                if ratio > 50 and ratio != 100:
+                    options.append((values, ratio))
+            options.sort(key=lambda i: i[1], reverse=True)
+            resultant_dict = {"key": key, "record": options}
             return render(request, 'matching_key_value/table.html', context=resultant_dict)
         else:
             return HttpResponse("Method not allowed")
